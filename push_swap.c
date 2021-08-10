@@ -6,13 +6,13 @@
 /*   By: pweinsto <pweinsto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/23 17:03:58 by pweinsto          #+#    #+#             */
-/*   Updated: 2021/08/07 18:49:10 by pweinsto         ###   ########.fr       */
+/*   Updated: 2021/08/10 17:27:18 by pweinsto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_print_stack(element *stack)
+void	ft_print_stack(t_list *stack)
 {
 	while(stack->next != NULL)
 	{
@@ -25,30 +25,33 @@ void	ft_print_stack(element *stack)
 
 int	main(int argc, char **argv)
 {
-	element	*a;
-	element	*b;
+	t_list	*a;
+	t_list	*b;
 
 	a = NULL;
 	b = NULL;
+	if(argc == 1)
+		return (0);
 	if(!ft_parse(&a, argc, argv))
 	{
 		write(2, "Error\n", 6);
-		ft_free_stack(&a);
+		//ft_free_stack(&a);
 		return (0);
 	}
 	if(ft_double_check(&a))
 	{
 		write(2, "Error\n", 6);
-		ft_free_stack(&a);
+		//ft_free_stack(&a);
 		return (0);
 	}
 	if(ft_stacksize(&a) + 1 <= 10)
 		_0_10(&a, &b);
-	else if(ft_stacksize(&a) + 1 <= 100)
+	else if(ft_stacksize(&a) + 1 <= 101)
 		_11_100(&a, &b);
 	else
 		_101_500(&a, &b);
-	ft_free_stack(&a);
-	system("leaks push_swap");
+	//ft_free_stack(&a);
+	//free(a);
+	//system("leaks push_swap");
 	return (0);
 }

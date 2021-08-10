@@ -6,13 +6,13 @@
 /*   By: pweinsto <pweinsto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 10:17:02 by pweinsto          #+#    #+#             */
-/*   Updated: 2021/08/07 18:57:05 by pweinsto         ###   ########.fr       */
+/*   Updated: 2021/08/10 17:12:13 by pweinsto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_parse(element **stack, int argc, char **argv)
+int	ft_parse(t_list **stack, int argc, char **argv)
 {
 	int	i;
 	int	j;
@@ -30,18 +30,33 @@ int	ft_parse(element **stack, int argc, char **argv)
 			while(nbrs[nbrs_len][j] != 0)
 			{
 				if(!ft_isdigit(nbrs[nbrs_len][j]) && nbrs[nbrs_len][j] != '-')
+				{
+					free(nbrs);
 					return (0);
+				}
+				if(nbrs[nbrs_len][j] == '-' && !ft_isdigit(nbrs[nbrs_len][j+1]))
+				{
+					free(nbrs);
+					return (0);
+				}
 				j++;
 			}
+			if(ft_atoi(nbrs[nbrs_len]) > 2147483647 || ft_atoi(nbrs[nbrs_len]) < -2147483648)
+			{
+				return (0);
+				free(nbrs);
+			}
 			push(ft_atoi(nbrs[nbrs_len]), stack);
+			free(nbrs[nbrs_len]);
 			nbrs_len--;
 		}	
 		i--;
 	}
+	free(nbrs);
 	return (1);
 }
 
-int	ft_double_check(element **stack)
+int	ft_double_check(t_list **stack)
 {
 	int	*array;
 	int	i;
@@ -86,7 +101,7 @@ int	ft_size_of_array(char **array)
 	return(i);
 }
 
-void	ft_free_stack(element **stack)
+void	ft_free_stack(t_list **stack)
 {
 	int	stack_size;
 	int	i;

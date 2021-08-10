@@ -6,123 +6,123 @@
 /*   By: pweinsto <pweinsto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/06 14:59:49 by pweinsto          #+#    #+#             */
-/*   Updated: 2021/08/07 18:05:30 by pweinsto         ###   ########.fr       */
+/*   Updated: 2021/08/10 17:14:07 by pweinsto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_sort_check(element **stack)
+int	ft_sort_check(t_list **stack)
 {
-	while((*stack)->next != NULL)
+	while ((*stack)->next != NULL)
 	{
-		if((*stack)->content >= (*stack)->next->content)
+		if ((*stack)->content >= (*stack)->next->content)
 			return (0);
 		stack = &(*stack)->next;
 	}
-	return(1);
+	return (1);
 }
 
-void	ft_push_4_chunks(element **stack_a, element **stack_b)
+void	ft_push_4_chunks(t_list **a, t_list **b)
 {
-	chunks	chunk;
-	int	stack_a_size;
-	int	i;
+	t_chunks	chunk;
+	int		stack_a_size;
+	int		i;
 
-	stack_a_size = ft_stacksize(stack_a) + 1;
-	ft_stack_array_4(stack_a, &chunk);
+	stack_a_size = ft_stacksize(a) + 1;
+	ft_stack_array_4(a, &chunk);
 	i = 0;
-	while(i < (stack_a_size / 4))
+	while (i < (stack_a_size / 4))
 	{
-		ft_index_to_top(stack_a, ft_get_index(stack_a, chunk.index1));
-		pb(stack_a, stack_b);
+		ft_index_to_top(a, ft_get_index(a, chunk.index1));
+		pb(a, b);
 		i++;
 	}
-	while(i < (stack_a_size / 4) * 2)
+	while (i < (stack_a_size / 4) * 2)
 	{
-		ft_index_to_top(stack_a, ft_get_index(stack_a, chunk.index2));
-		pb(stack_a, stack_b);
+		ft_index_to_top(a, ft_get_index(a, chunk.index2));
+		pb(a, b);
 		i++;
 	}
-	while(i < (stack_a_size / 4) * 3)
+	while (i < (stack_a_size / 4) * 3)
 	{
-		ft_index_to_top(stack_a, ft_get_index(stack_a, chunk.index3));
-		pb(stack_a, stack_b);
+		ft_index_to_top(a, ft_get_index(a, chunk.index3));
+		pb(a, b);
 		i++;
 	}
 }
 
-void	ft_push_8_chunks_1(element **stack_a, element **stack_b)
+void	ft_push_8_chunks_1(t_list **a, t_list **b)
 {
-	chunks	chunk;
-	chunks_para	para;
+	t_chunks		chunk;
+	t_cp	para;
 
-	para.stack_a_size = ft_stacksize(stack_a) + 1;
-	ft_stack_array_8(stack_a, &chunk);
+	para.stack_a_size = ft_stacksize(a) + 1;
+	ft_stack_array_8(a, &chunk);
 	para.i = 0;
-	while(para.i < (para.stack_a_size / 8))
+	while (para.i < (para.stack_a_size / 8))
 	{
-		ft_index_to_top(stack_a, ft_get_index(stack_a, chunk.index1));
-		pb(stack_a, stack_b);
+		ft_index_to_top(a, ft_get_index(a, chunk.index1));
+		pb(a, b);
 		para.i++;
 	}
-	while(para.i < (para.stack_a_size / 8) * 2)
+	while (para.i < (para.stack_a_size / 8) * 2)
 	{
-		ft_index_to_top(stack_a, ft_get_index(stack_a, chunk.index2));
-		pb(stack_a, stack_b);
+		ft_index_to_top(a, ft_get_index(a, chunk.index2));
+		pb(a, b);
 		para.i++;
 	}
-	ft_push_8_chunks_2(stack_a, stack_b, chunk, para);
+	ft_push_8_chunks_2(a, b, chunk, para);
 }
 
-void	ft_push_8_chunks_2(element **stack_a, element **stack_b, chunks chunk, chunks_para para)
+void	ft_push_8_chunks_2(t_list **a, t_list **b, t_chunks chunk, t_cp para)
 {
-	while(para.i < (para.stack_a_size / 8) * 3)
+	while (para.i < (para.stack_a_size / 8) * 3)
 	{
-		ft_index_to_top(stack_a, ft_get_index(stack_a, chunk.index3));
-		pb(stack_a, stack_b);
+		ft_index_to_top(a, ft_get_index(a, chunk.index3));
+		pb(a, b);
 		para.i++;
 	}
-	while(para.i < (para.stack_a_size / 8) * 4)
+	while (para.i < (para.stack_a_size / 8) * 4)
 	{
-		ft_index_to_top(stack_a, ft_get_index(stack_a, chunk.index4));
-		pb(stack_a, stack_b);
+		ft_index_to_top(a, ft_get_index(a, chunk.index4));
+		pb(a, b);
 		para.i++;
 	}
-	ft_push_8_chunks_3(stack_a, stack_b, chunk, para);
+	ft_push_8_chunks_3(a, b, chunk, para);
 }
 
-void	ft_push_8_chunks_3(element **stack_a, element **stack_b, chunks chunk, chunks_para para)
+void	ft_push_8_chunks_3(t_list **a, t_list **b, t_chunks chunk, t_cp para)
 {
-	while(para.i < (para.stack_a_size / 8) * 5)
+	while (para.i < (para.stack_a_size / 8) * 5)
 	{
-		ft_index_to_top(stack_a, ft_get_index(stack_a, chunk.index5));
-		pb(stack_a, stack_b);
+		ft_index_to_top(a, ft_get_index(a, chunk.index5));
+		pb(a, b);
 		para.i++;
 	}
-	while(para.i < (para.stack_a_size / 8) * 6)
+	while (para.i < (para.stack_a_size / 8) * 6)
 	{
-		ft_index_to_top(stack_a, ft_get_index(stack_a, chunk.index6));
-		pb(stack_a, stack_b);
+		ft_index_to_top(a, ft_get_index(a, chunk.index6));
+		pb(a, b);
 		para.i++;
 	}
-	while(para.i < (para.stack_a_size / 8) * 7)
+	while (para.i < (para.stack_a_size / 8) * 7)
 	{
-		ft_index_to_top(stack_a, ft_get_index(stack_a, chunk.index7));
-		pb(stack_a, stack_b);
+		ft_index_to_top(a, ft_get_index(a, chunk.index7));
+		pb(a, b);
 		para.i++;
 	}
 }
 
-void	ft_push_chunks_back(element **stack_a, element **stack_b)
+void	ft_push_chunks_back(t_list **a, t_list **b)
 {
 	int	stack_b_size;
 
-	stack_b_size = ft_stacksize(stack_b) + 1;
-	while(stack_b_size)
+	stack_b_size = ft_stacksize(b) + 1;
+	while (stack_b_size)
 	{
-		ft_index_to_top_b(stack_b, ft_maxindex(stack_b));
-		pa(stack_a, stack_b);
+		ft_index_to_top_b(b, ft_maxindex(b));
+		pa(a, b);
 		stack_b_size--;
 	}
 }

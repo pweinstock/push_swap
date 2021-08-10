@@ -6,69 +6,75 @@
 /*   By: pweinsto <pweinsto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 18:02:01 by pweinsto          #+#    #+#             */
-/*   Updated: 2021/08/07 18:06:10 by pweinsto         ###   ########.fr       */
+/*   Updated: 2021/08/10 17:14:40 by pweinsto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	_3(element **stack)
+void	_3(t_list **stack)
 {
 	int	first;
 	int	second;
 	int	third;
-	
+
 	first = (*stack)->content;
 	second = (*stack)->next->content;
 	third = (*stack)->next->next->content;
-	if(third > first && first > second)
+	if (third > first && first > second)
 		sa(stack);
-	else if(first > second && second > third)
+	else if (first > second && second > third)
 	{
 		sa(stack);
 		rra(stack);
 	}
-	else if(first > third && third > second)
+	else if (first > third && third > second)
 		ra(stack);
-	else if(second > third && third > first)
-		{
-			sa(stack);
-			ra(stack);
-		}
-	else if(second > first && first > third)
+	else if (second > third && third > first)
+	{
+		sa(stack);
+		ra(stack);
+	}
+	else if (second > first && first > third)
 		rra(stack);
 }
 
-void	_0_10(element **stack_a, element **stack_b)
+void	_0_10(t_list **a, t_list **b)
 {
 	int	i;
 
 	i = 0;
-	while(ft_stacksize(stack_a) > 2 && ft_sort_check(stack_a) == 0)
+	while (ft_stacksize(a) > 2 && ft_sort_check(a) == 0)
 	{
-		ft_index_to_top(stack_a, ft_minindex(stack_a));
-		pb(stack_a, stack_b);
+		ft_index_to_top(a, ft_minindex(a));
+		pb(a, b);
 		i++;
 	}
-	if(ft_sort_check(stack_a) == 0)
-		_3(stack_a);
-	while(i)
+	if (ft_sort_check(a) == 0 && ft_stacksize(a) == 1)
+		sa(a);
+	else if (ft_sort_check(a) == 0)
+		_3(a);
+	while (i)
 	{
-		pa(stack_a, stack_b);
+		pa(a, b);
 		i--;
 	}
 }
 
-void	_11_100(element **stack_a, element **stack_b)
+void	_11_100(t_list **a, t_list **b)
 {
-	ft_push_4_chunks(stack_a, stack_b);
-	_0_10(stack_a, stack_b);
-	ft_push_chunks_back(stack_a, stack_b);
+	ft_push_4_chunks(a, b);
+	if (ft_stacksize(a) > 10)
+		ft_push_4_chunks(a, b);
+	_0_10(a, b);
+	ft_push_chunks_back(a, b);
 }
 
-void	_101_500(element **stack_a, element **stack_b)
+void	_101_500(t_list **a, t_list **b)
 {
-	ft_push_8_chunks_1(stack_a, stack_b);
-	_0_10(stack_a, stack_b);
-	ft_push_chunks_back(stack_a, stack_b);
+	ft_push_8_chunks_1(a, b);
+	if (ft_stacksize(a) > 10)
+		ft_push_4_chunks(a, b);
+	_0_10(a, b);
+	ft_push_chunks_back(a, b);
 }

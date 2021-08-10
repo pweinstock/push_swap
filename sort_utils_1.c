@@ -6,18 +6,18 @@
 /*   By: pweinsto <pweinsto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 10:18:08 by pweinsto          #+#    #+#             */
-/*   Updated: 2021/08/06 19:30:25 by pweinsto         ###   ########.fr       */
+/*   Updated: 2021/08/10 17:15:03 by pweinsto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_stacksize(element **stack)
+int	ft_stacksize(t_list **stack)
 {
 	int	i;
 
 	i = 0;
-	while((*stack)->next != NULL)
+	while ((*stack)->next != NULL)
 	{
 		stack = &(*stack)->next;
 		i++;
@@ -25,7 +25,7 @@ int	ft_stacksize(element **stack)
 	return (i);
 }
 
-int	ft_minindex(element **stack)
+int	ft_minindex(t_list **stack)
 {
 	int	min;
 	int	index;
@@ -34,9 +34,9 @@ int	ft_minindex(element **stack)
 	min = 2147483647;
 	index = 0;
 	minindex = 0;
-	while((*stack)->next != NULL)
+	while ((*stack)->next != NULL)
 	{
-		if((*stack)->content < min)
+		if ((*stack)->content < min)
 		{
 			min = (*stack)->content;
 			minindex = index;
@@ -44,15 +44,15 @@ int	ft_minindex(element **stack)
 		stack = &(*stack)->next;
 		index++;
 	}
-	if((*stack)->content < min)
-		{
-			min = (*stack)->content;
-			minindex = index;
-		}
+	if ((*stack)->content < min)
+	{
+		min = (*stack)->content;
+		minindex = index;
+	}
 	return (minindex);
 }
 
-int	ft_maxindex(element **stack)
+int	ft_maxindex(t_list **stack)
 {
 	int	max;
 	int	index;
@@ -61,9 +61,9 @@ int	ft_maxindex(element **stack)
 	max = -2147483648;
 	index = 0;
 	maxindex = 0;
-	while((*stack)->next != NULL)
+	while ((*stack)->next != NULL)
 	{
-		if((*stack)->content > max)
+		if ((*stack)->content > max)
 		{
 			max = (*stack)->content;
 			maxindex = index;
@@ -71,24 +71,24 @@ int	ft_maxindex(element **stack)
 		stack = &(*stack)->next;
 		index++;
 	}
-	if((*stack)->content > max)
-		{
-			max = (*stack)->content;
-			maxindex = index;
-		}
+	if ((*stack)->content > max)
+	{
+		max = (*stack)->content;
+		maxindex = index;
+	}
 	return (maxindex);
 }
 
-void	ft_index_to_top(element **stack, int index)
+void	ft_index_to_top(t_list **stack, int index)
 {
 	int	stacksize;
-	int i;
+	int	i;
 
 	stacksize = ft_stacksize(stack);
 	i = 0;
-	if(index <= stacksize / 2)
+	if (index <= stacksize / 2)
 	{
-		while(i < index)
+		while (i < index)
 		{
 			ra(stack);
 			i++;
@@ -96,7 +96,7 @@ void	ft_index_to_top(element **stack, int index)
 	}
 	else
 	{
-		while(i <= stacksize - index)
+		while (i <= stacksize - index)
 		{
 			rra(stack);
 			i++;
@@ -104,16 +104,16 @@ void	ft_index_to_top(element **stack, int index)
 	}
 }
 
-void	ft_index_to_top_b(element **stack, int index)
+void	ft_index_to_top_b(t_list **stack, int index)
 {
 	int	stacksize;
-	int i;
+	int	i;
 
 	stacksize = ft_stacksize(stack);
 	i = 0;
-	if(index <= stacksize / 2)
+	if (index <= stacksize / 2)
 	{
-		while(i < index)
+		while (i < index)
 		{
 			rb(stack);
 			i++;
@@ -121,7 +121,7 @@ void	ft_index_to_top_b(element **stack, int index)
 	}
 	else
 	{
-		while(i <= stacksize - index)
+		while (i <= stacksize - index)
 		{
 			rrb(stack);
 			i++;
@@ -129,16 +129,16 @@ void	ft_index_to_top_b(element **stack, int index)
 	}
 }
 
-int	ft_get_index(element **stack_a, int index)
+int	ft_get_index(t_list **a, int index)
 {
 	int	i;
 
 	i = 0;
-	while(*stack_a)
+	while (*a)
 	{
-		if((*stack_a)->content <= index)
+		if ((*a)->content <= index)
 			return (i);
-		stack_a = &(*stack_a)->next;
+		a = &(*a)->next;
 		i++;
 	}
 	return (0);
