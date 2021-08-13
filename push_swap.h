@@ -6,7 +6,7 @@
 /*   By: pweinsto <pweinsto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/23 17:15:12 by pweinsto          #+#    #+#             */
-/*   Updated: 2021/08/10 17:16:16 by pweinsto         ###   ########.fr       */
+/*   Updated: 2021/08/11 16:51:30 by pweinsto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "libft/libft.h"
 # include <stdlib.h>
-# include <stdio.h> // delete this !!!!
 
 typedef struct node
 {
@@ -40,14 +39,16 @@ typedef struct chunk_para
 	int	stack_a_size;
 }				t_cp;
 
-//printing delete this!!!
-void	ft_print_stack(t_list *stack);
-
 //parse
 int		ft_parse(t_list **stack, int argc, char **argv);
-int		ft_double_check(t_list **stack);
+int		ft_double_check_1(t_list **stack);
+int		ft_double_check_2(int *array, int stacksize);
 int		ft_size_of_array(char **array);
+int		ft_error_check(char **ptr, int len);
+
+//free_utils
 void	ft_free_stack(t_list **stack);
+void	ft_free_split(char **ptr);
 
 //game_rules_swap
 void	swap(t_list **stack);
@@ -76,9 +77,10 @@ void	_3(t_list **stack);
 void	_0_10(t_list **a, t_list **b);
 void	_11_100(t_list **a, t_list **b);
 void	_101_500(t_list **a, t_list **b);
+void	ft_sort(t_list **a, t_list **b);
 
 //sort_utils_1
-int		ft_stacksize(t_list **stack);
+
 int		ft_minindex(t_list **stack);
 int		ft_maxindex(t_list **stack);
 void	ft_index_to_top(t_list **stack, int index);
@@ -86,9 +88,12 @@ int		ft_get_index(t_list **a, int index);
 void	ft_index_to_top_b(t_list **stack, int index);
 
 //sort_utils_2
+int		ft_stacksize(t_list **stack);
 int		ft_sort_check(t_list **stack);
 void	ft_push_4_chunks(t_list **a, t_list **b);
 void	ft_push_chunks_back(t_list **a, t_list **b);
+
+//sort_utils_3
 void	ft_push_8_chunks_1(t_list **a, t_list **b);
 void	ft_push_8_chunks_2(t_list **a, t_list **b, t_chunks chunk, t_cp para);
 void	ft_push_8_chunks_3(t_list **a, t_list **b, t_chunks chunk, t_cp para);

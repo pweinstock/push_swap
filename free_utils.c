@@ -1,42 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pweinsto <pweinsto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/23 17:03:58 by pweinsto          #+#    #+#             */
-/*   Updated: 2021/08/11 16:40:14 by pweinsto         ###   ########.fr       */
+/*   Created: 2021/08/11 16:42:54 by pweinsto          #+#    #+#             */
+/*   Updated: 2021/08/11 16:44:58 by pweinsto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	main(int argc, char **argv)
+void	ft_free_stack(t_list **stack)
 {
-	t_list	*a;
-	t_list	*b;
+	int	stack_size;
+	int	i;
 
-	a = NULL;
-	b = NULL;
-	if (argc == 1)
-		return (0);
-	if (!ft_parse(&a, argc, argv))
+	stack_size = ft_stacksize(stack);
+	i = 0;
+	while (i < stack_size)
 	{
-		write(2, "Error\n", 6);
-		ft_free_stack(&a);
-		free(a);
-		return (0);
+		pop(stack);
+		i++;
 	}
-	if (ft_double_check_1(&a))
+}
+
+void	ft_free_split(char **ptr)
+{
+	int	i;
+
+	i = 0;
+	while (ptr[i])
 	{
-		write(2, "Error\n", 6);
-		ft_free_stack(&a);
-		free(a);
-		return (0);
+		free(ptr[i]);
+		i++;
 	}
-	ft_sort(&a, &b);
-	ft_free_stack(&a);
-	free(a);
-	return (0);
+	free(ptr);
 }

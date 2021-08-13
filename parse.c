@@ -6,7 +6,7 @@
 /*   By: pweinsto <pweinsto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/07 10:17:02 by pweinsto          #+#    #+#             */
-/*   Updated: 2021/08/10 17:12:13 by pweinsto         ###   ########.fr       */
+/*   Updated: 2021/08/11 16:43:37 by pweinsto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,76 +14,63 @@
 
 int	ft_parse(t_list **stack, int argc, char **argv)
 {
-	int	i;
-	int	j;
-	char	**nbrs;
-	int	nbrs_len;
-	
+	int		i;
+	char	**ptr;
+	int		len;
+
 	i = argc - 1;
 	while (i > 0)
 	{
-		nbrs = ft_split(argv[i], ' ');
-		nbrs_len = ft_size_of_array(nbrs) - 1;
-		while(nbrs_len >= 0)
+		ptr = ft_split(argv[i], ' ');
+		len = ft_size_of_array(ptr) - 1;
+		while (len >= 0)
 		{
-			j = 0;
-			while(nbrs[nbrs_len][j] != 0)
-			{
-				if(!ft_isdigit(nbrs[nbrs_len][j]) && nbrs[nbrs_len][j] != '-')
-				{
-					free(nbrs);
-					return (0);
-				}
-				if(nbrs[nbrs_len][j] == '-' && !ft_isdigit(nbrs[nbrs_len][j+1]))
-				{
-					free(nbrs);
-					return (0);
-				}
-				j++;
-			}
-			if(ft_atoi(nbrs[nbrs_len]) > 2147483647 || ft_atoi(nbrs[nbrs_len]) < -2147483648)
-			{
+			if (ft_error_check(ptr, len))
 				return (0);
-				free(nbrs);
-			}
-			push(ft_atoi(nbrs[nbrs_len]), stack);
-			free(nbrs[nbrs_len]);
-			nbrs_len--;
+			push(ft_atoi(ptr[len]), stack);
+			len--;
 		}	
 		i--;
+		ft_free_split(ptr);
 	}
-	free(nbrs);
 	return (1);
 }
 
-int	ft_double_check(t_list **stack)
+int	ft_double_check_1(t_list **stack)
 {
 	int	*array;
 	int	i;
-	int	j;
 	int	stacksize;
 
 	i = 0;
 	stacksize = ft_stacksize(stack);
 	array = (int *)malloc(sizeof(int) * (stacksize + 1));
-	while(*stack)
+	while (*stack)
 	{
 		array[i] = (*stack)->content;
 		stack = &(*stack)->next;
 		i++;
 	}
+	return (ft_double_check_2(array, stacksize));
+}
+
+int	ft_double_check_2(int *array, int stacksize)
+{
+	int	i;
+	int	j;
+
 	i = 0;
-	while(i <= stacksize)
+	while (i <= stacksize)
 	{
 		j = 0;
-		while(j < i)
+		while (j < i)
 		{
-			if(array[j] == array[i])
+			if (array[j] == array[i])
 			{
 				free(array);
 				return (1);
-			}	
-			j++;	
+			}
+			j++;
 		}
 		i++;
 	}
@@ -96,21 +83,34 @@ int	ft_size_of_array(char **array)
 	int	i;
 
 	i = 0;
-	while(array[i])
+	while (array[i])
 		i++;
-	return(i);
+	return (i);
 }
 
-void	ft_free_stack(t_list **stack)
+int	ft_error_check(char **ptr, int len)
 {
-	int	stack_size;
-	int	i;
+	int	j;
 
-	stack_size = ft_stacksize(stack);
-	i = 0;
-	while(i < stack_size)
+	j = 0;
+	while (ptr[len][j] != 0)
 	{
-		pop(stack);
-		i++;
+		if (!ft_isdigit(ptr[len][j]) && ptr[len][j] != '-')
+		{
+			ft_free_split(ptr);
+			return (1);
+		}
+		if (ptr[len][j] == '-' && !ft_isdigit(ptr[len][j + 1]))
+		{
+			ft_free_split(ptr);
+			return (1);
+		}
+		j++;
 	}
+	if (ft_atoi(ptr[len]) > 2147483647 || ft_atoi(ptr[len]) < -2147483648)
+	{
+		ft_free_split(ptr);
+		return (1);
+	}
+	return (0);
 }

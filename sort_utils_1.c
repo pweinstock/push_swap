@@ -6,24 +6,11 @@
 /*   By: pweinsto <pweinsto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 10:18:08 by pweinsto          #+#    #+#             */
-/*   Updated: 2021/08/10 17:15:03 by pweinsto         ###   ########.fr       */
+/*   Updated: 2021/08/11 16:50:14 by pweinsto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-int	ft_stacksize(t_list **stack)
-{
-	int	i;
-
-	i = 0;
-	while ((*stack)->next != NULL)
-	{
-		stack = &(*stack)->next;
-		i++;
-	}
-	return (i);
-}
 
 int	ft_minindex(t_list **stack)
 {

@@ -6,7 +6,7 @@
 /*   By: pweinsto <pweinsto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 18:02:01 by pweinsto          #+#    #+#             */
-/*   Updated: 2021/08/10 17:14:40 by pweinsto         ###   ########.fr       */
+/*   Updated: 2021/08/11 16:33:01 by pweinsto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,14 @@ void	_101_500(t_list **a, t_list **b)
 		ft_push_4_chunks(a, b);
 	_0_10(a, b);
 	ft_push_chunks_back(a, b);
+}
+
+void	ft_sort(t_list **a, t_list **b)
+{
+	if (ft_stacksize(a) + 1 <= 10)
+		_0_10(a, b);
+	else if (ft_stacksize(a) + 1 <= 101)
+		_11_100(a, b);
+	else
+		_101_500(a, b);
 }
